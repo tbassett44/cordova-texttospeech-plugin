@@ -32,6 +32,7 @@
     "clean": "rimraf node_modules dist",
     "postclean": "npm i",
     "build": "npm run jsdoc",
+    "jsdoc": "exit 0",
     "pretest": "rm -rf tmp && mkdir -p tmp && cd tmp && git clone https://github.com/simpligility/maven-android-sdk-deployer.git && cd maven-android-sdk-deployer/ && mvn install -P 6.0 && ls ~/.m2/repository/android/android/",
     "test": "cd tmp && git clone https://github.com/hypery2k/cordova-demo-app.git && cd cordova-demo-app && npm install && npm run build && cordova platform add ${PLATFORM} && cordova plugin add cordova-plugin-compat && cordova build && cordova plugin add ../.. && cordova build",
     "posttest": "exit 0",
