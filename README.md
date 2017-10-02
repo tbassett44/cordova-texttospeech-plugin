@@ -1,5 +1,7 @@
 # Cordova Text-to-Speech Plugin
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/hypery2k/cordova-texttospeech-plugin.svg)](https://greenkeeper.io/)
+
 ## Platforms
 
 iOS 7+  
