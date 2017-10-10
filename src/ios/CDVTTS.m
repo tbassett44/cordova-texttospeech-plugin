@@ -35,7 +35,7 @@
 }
 
 - (void)speak:(CDVInvokedUrlCommand*)command {
-    [[AVAudioSession sharedInstance] setActive:NO withOptions:0 error:nil];
+    [[AVAudioSession sharedInstance] setActive:YES withOptions:0 error:nil];
     [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback
       withOptions:AVAudioSessionCategoryOptionDuckOthers error:nil];
 
