@@ -2,14 +2,14 @@
 
 ## Platforms
 
-iOS 7+  
-Windows Phone 8  
-Android 4.0.3+ (API Level 15+)
+* iOS 7+  
+* Windows Phone 8  
+* Android 4.0.3+ (API Level 15+)
 
 ## Installation
 
 ```sh
-cordova plugin add cordova-plugin-tts
+cordova plugin add cordova-plugin-texttospeech
 ```
 
 ## Usage
