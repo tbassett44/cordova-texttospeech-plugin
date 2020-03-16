@@ -28,16 +28,16 @@
         callbackId = nil;
     }
     
-    [[AVAudioSession sharedInstance] setActive:NO withOptions:0 error:nil];
-    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryAmbient 
+    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryAmbient
       withOptions: 0 error: nil];
-    [[AVAudioSession sharedInstance] setActive:YES withOptions: 0 error:nil];
+    [[AVAudioSession sharedInstance] setActive:NO withOptions:0 error:nil];
+    //[[AVAudioSession sharedInstance] setActive:YES withOptions: 0 error:nil];
 }
 
 - (void)speak:(CDVInvokedUrlCommand*)command {
-    [[AVAudioSession sharedInstance] setActive:YES withOptions:0 error:nil];
     [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback
       withOptions:AVAudioSessionCategoryOptionDuckOthers error:nil];
+    [[AVAudioSession sharedInstance] setActive:YES withOptions:0 error:nil];
 
     if (callbackId) {
         lastCallbackId = callbackId;
