@@ -35,14 +35,14 @@ public class TTS extends CordovaPlugin implements OnInitListener {
     public static final String ERR_NOT_INITIALIZED = "ERR_NOT_INITIALIZED";
     public static final String ERR_ERROR_INITIALIZING = "ERR_ERROR_INITIALIZING";
     public static final String ERR_UNKNOWN = "ERR_UNKNOWN";
-    public static final AudioManager audioManager = (AudioManager) cordova.getActivity().getSystemService(Context.AUDIO_SERVICE);
-    public static final AudioManager.OnAudioFocusChangeListener afChangeListener;
     boolean ttsInitialized = false;
     TextToSpeech tts = null;
-
+    AudioManager audioManager =false;
+    AudioManager.OnAudioFocusChangeListener afChangeListener;
     @Override
     public void initialize(CordovaInterface cordova, final CordovaWebView webView) {
         tts = new TextToSpeech(cordova.getActivity().getApplicationContext(), this);
+        audioManager = (AudioManager) cordova.getActivity().getSystemService(Context.AUDIO_SERVICE);
         tts.setOnUtteranceProgressListener(new UtteranceProgressListener() {
             @Override
             public void onStart(String s) {
