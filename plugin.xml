@@ -4,7 +4,7 @@
   xmlns="http://apache.org/cordova/ns/plugins/1.0"
   xmlns:android="http://schemas.android.com/apk/res/android"
   id="cordova-plugin-texttospeech"
-  version="0.1.3-NECTAR">
+  version="0.1.4-NECTAR">
   <name>TTS</name>
   <description>Cordova Text-to-Speech Plugin</description>
   <author>VILIC VANE</author>
