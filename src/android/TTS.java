@@ -40,6 +40,9 @@ public class TTS extends CordovaPlugin implements OnInitListener {
     TextToSpeech tts = null;
     AudioManager audioManager = null;
     AudioManager.OnAudioFocusChangeListener afChangeListener;
+    AudioAttributes playbackAttributes = null;
+    AudioFocusRequest focusRequest = null;
+
     @Override
     public void initialize(CordovaInterface cordova, final CordovaWebView webView) {
         tts = new TextToSpeech(cordova.getActivity().getApplicationContext(), this);
@@ -51,12 +54,20 @@ public class TTS extends CordovaPlugin implements OnInitListener {
             }
             @Override
             public void onStop(String utteranceId, boolean interrupted) {
-                audioManager.abandonAudioFocus(afChangeListener);
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                    audioManager.abandonAudioFocusRequest(focusRequest);
+                }else{
+                    audioManager.abandonAudioFocus(afChangeListener);
+                }
             }
             @Override
             public void onDone(String callbackId) {
                 if (!callbackId.equals("")) {
-                    audioManager.abandonAudioFocus(afChangeListener);
+                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                        audioManager.abandonAudioFocusRequest(focusRequest);
+                    }else{
+                        audioManager.abandonAudioFocus(afChangeListener);
+                    }
                     CallbackContext context = new CallbackContext(callbackId, webView);
                     context.success();
                 }
@@ -65,7 +76,11 @@ public class TTS extends CordovaPlugin implements OnInitListener {
             @Override
             public void onError(String callbackId) {
                 if (!callbackId.equals("")) {
-                    audioManager.abandonAudioFocus(afChangeListener);
+                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                        audioManager.abandonAudioFocusRequest(focusRequest);
+                    }else{
+                        audioManager.abandonAudioFocus(afChangeListener);
+                    }
                     CallbackContext context = new CallbackContext(callbackId, webView);
                     context.error(ERR_UNKNOWN);
                 }
