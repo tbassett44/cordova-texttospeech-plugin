@@ -48,14 +48,14 @@ public class TTS extends CordovaPlugin implements OnInitListener {
             }
             @Override
             public void onStop(String utteranceId, boolean interrupted) {
-                AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+                AudioManager audioManager = (AudioManager) cordova.getActivity().getSystemService(Context.AUDIO_SERVICE);
                 AudioManager.OnAudioFocusChangeListener afChangeListener;
                 audioManager.abandonAudioFocus(afChangeListener);
             }
             @Override
             public void onDone(String callbackId) {
                 if (!callbackId.equals("")) {
-                    AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+                    AudioManager audioManager = (AudioManager) cordova.getActivity().getSystemService(Context.AUDIO_SERVICE);
                     AudioManager.OnAudioFocusChangeListener afChangeListener;
                     audioManager.abandonAudioFocus(afChangeListener);
                     CallbackContext context = new CallbackContext(callbackId, webView);
@@ -66,7 +66,7 @@ public class TTS extends CordovaPlugin implements OnInitListener {
             @Override
             public void onError(String callbackId) {
                 if (!callbackId.equals("")) {
-                    AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+                    AudioManager audioManager = (AudioManager) cordova.getActivity().getSystemService(Context.AUDIO_SERVICE);
                     AudioManager.OnAudioFocusChangeListener afChangeListener;
                     audioManager.abandonAudioFocus(afChangeListener);
                     CallbackContext context = new CallbackContext(callbackId, webView);
@@ -114,7 +114,7 @@ public class TTS extends CordovaPlugin implements OnInitListener {
         JSONObject params = args.getJSONObject(0);
          // Request audio focus for playback
         
-        AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+        AudioManager audioManager = (AudioManager) cordova.getActivity().getSystemService(Context.AUDIO_SERVICE);
         AudioManager.OnAudioFocusChangeListener afChangeListener;
 
         int result = audioManager.requestAudioFocus(afChangeListener,
