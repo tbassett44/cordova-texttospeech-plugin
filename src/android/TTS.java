@@ -18,6 +18,7 @@ import java.util.HashMap;
 import java.util.Locale;
 
 import android.media.AudioManager;
+import android.content.Context;
 /*
     Cordova Text-to-Speech Plugin
     https://github.com/vilic/cordova-plugin-tts
