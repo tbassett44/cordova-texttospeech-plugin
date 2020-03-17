@@ -110,16 +110,28 @@ public class TTS extends CordovaPlugin implements OnInitListener {
             throws JSONException, NullPointerException {
         JSONObject params = args.getJSONObject(0);
          // Request audio focus for playback
-
-        int amResult = audioManager.requestAudioFocus(afChangeListener,
-             // Use the music stream.
-             AudioManager.STREAM_MUSIC,
-             // Request permanent focus.
-             AudioManager.AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK);
-        if(amResult != AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
-                callbackContext.error(ERR_INVALID_PERMISSIONS);
-                return;
-            }
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {//for android 0 and higher
+            playbackAttributes = new AudioAttributes.Builder()
+                .setUsage(AudioAttributes.USAGE_GAME)
+                .setContentType(AudioAttributes.CONTENT_TYPE_SPEECH)
+                .build();
+            focusRequest = new AudioFocusRequest.Builder(AudioManager.AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK)
+                .setAudioAttributes(playbackAttributes)
+                .setAcceptsDelayedFocusGain(true)
+                .setOnAudioFocusChangeListener(afChangeListener)
+                .build();
+            int amResult = audioManager.requestAudioFocus(focusRequest);
+        }else{
+            int amResult = audioManager.requestAudioFocus(afChangeListener,
+                 // Use the music stream.
+                 AudioManager.STREAM_MUSIC,
+                 // Request permanent focus.
+                 AudioManager.AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK);
+            if(amResult != AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
+                    callbackContext.error(ERR_INVALID_PERMISSIONS);
+                    return;
+                }
+        }
         if (params == null) {
             callbackContext.error(ERR_INVALID_OPTIONS);
             return;
