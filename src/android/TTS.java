@@ -37,12 +37,11 @@ public class TTS extends CordovaPlugin implements OnInitListener {
     public static final String ERR_UNKNOWN = "ERR_UNKNOWN";
     boolean ttsInitialized = false;
     TextToSpeech tts = null;
-    AudioManager audioManager =false;
+    AudioManager audioManager = null;
     AudioManager.OnAudioFocusChangeListener afChangeListener;
     @Override
     public void initialize(CordovaInterface cordova, final CordovaWebView webView) {
         tts = new TextToSpeech(cordova.getActivity().getApplicationContext(), this);
-        audioManager = (AudioManager) cordova.getActivity().getSystemService(Context.AUDIO_SERVICE);
         tts.setOnUtteranceProgressListener(new UtteranceProgressListener() {
             @Override
             public void onStart(String s) {
