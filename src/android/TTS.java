@@ -35,7 +35,8 @@ public class TTS extends CordovaPlugin implements OnInitListener {
     public static final String ERR_NOT_INITIALIZED = "ERR_NOT_INITIALIZED";
     public static final String ERR_ERROR_INITIALIZING = "ERR_ERROR_INITIALIZING";
     public static final String ERR_UNKNOWN = "ERR_UNKNOWN";
-
+    public static final AudioManager audioManager = (AudioManager) cordova.getActivity().getSystemService(Context.AUDIO_SERVICE);
+    public static final AudioManager.OnAudioFocusChangeListener afChangeListener;
     boolean ttsInitialized = false;
     TextToSpeech tts = null;
 
@@ -49,15 +50,11 @@ public class TTS extends CordovaPlugin implements OnInitListener {
             }
             @Override
             public void onStop(String utteranceId, boolean interrupted) {
-                AudioManager audioManager = (AudioManager) cordova.getActivity().getSystemService(Context.AUDIO_SERVICE);
-                AudioManager.OnAudioFocusChangeListener afChangeListener;
                 audioManager.abandonAudioFocus(afChangeListener);
             }
             @Override
             public void onDone(String callbackId) {
                 if (!callbackId.equals("")) {
-                    AudioManager audioManager = (AudioManager) cordova.getActivity().getSystemService(Context.AUDIO_SERVICE);
-                    AudioManager.OnAudioFocusChangeListener afChangeListener;
                     audioManager.abandonAudioFocus(afChangeListener);
                     CallbackContext context = new CallbackContext(callbackId, webView);
                     context.success();
@@ -67,8 +64,6 @@ public class TTS extends CordovaPlugin implements OnInitListener {
             @Override
             public void onError(String callbackId) {
                 if (!callbackId.equals("")) {
-                    AudioManager audioManager = (AudioManager) cordova.getActivity().getSystemService(Context.AUDIO_SERVICE);
-                    AudioManager.OnAudioFocusChangeListener afChangeListener;
                     audioManager.abandonAudioFocus(afChangeListener);
                     CallbackContext context = new CallbackContext(callbackId, webView);
                     context.error(ERR_UNKNOWN);
@@ -114,9 +109,6 @@ public class TTS extends CordovaPlugin implements OnInitListener {
             throws JSONException, NullPointerException {
         JSONObject params = args.getJSONObject(0);
          // Request audio focus for playback
-        
-        AudioManager audioManager = (AudioManager) cordova.getActivity().getSystemService(Context.AUDIO_SERVICE);
-        AudioManager.OnAudioFocusChangeListener afChangeListener;
 
         int result = audioManager.requestAudioFocus(afChangeListener,
              // Use the music stream.
