@@ -135,7 +135,7 @@ public class TTS extends CordovaPlugin implements OnInitListener {
             afChangeListener=new AudioManager.OnAudioFocusChangeListener() {
                 @Override
                 public void onAudioFocusChange(int i) { }
-            }
+            };
             focusRequest = new AudioFocusRequest.Builder(AudioManager.AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK)
                 .setAudioAttributes(playbackAttributes)
                 .setAcceptsDelayedFocusGain(true)
