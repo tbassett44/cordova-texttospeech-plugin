@@ -19,6 +19,8 @@ import java.util.Locale;
 
 import android.media.AudioManager;
 import android.content.Context;
+import android.media.AudioAttributes;
+import android.media.AudioFocusRequest;
 /*
     Cordova Text-to-Speech Plugin
     https://github.com/vilic/cordova-plugin-tts
