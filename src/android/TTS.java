@@ -129,7 +129,7 @@ public class TTS extends CordovaPlugin implements OnInitListener {
          // Request audio focus for playback
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {//for android 0 and higher
             playbackAttributes = new AudioAttributes.Builder()
-                .setUsage(AudioAttributes.USAGE_GAME)
+                .setUsage(AudioAttributes.USAGE_ASSISTANT)
                 .setContentType(AudioAttributes.CONTENT_TYPE_SPEECH)
                 .build();
             afChangeListener=new AudioManager.OnAudioFocusChangeListener() {
@@ -139,6 +139,7 @@ public class TTS extends CordovaPlugin implements OnInitListener {
             focusRequest = new AudioFocusRequest.Builder(AudioManager.AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK)
                 .setAudioAttributes(playbackAttributes)
                 .setAcceptsDelayedFocusGain(true)
+                .forceDucking(true)
                 .setOnAudioFocusChangeListener(afChangeListener)
                 .build();
             int amResult = audioManager.requestAudioFocus(focusRequest);
